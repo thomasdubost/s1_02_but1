@@ -1,0 +1,1 @@
+typedef enum {OURS, ELEPHANT, LION}Animal;
