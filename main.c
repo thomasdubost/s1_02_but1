@@ -6,13 +6,8 @@ int main()
      Podium rouge;
      Podium bleu;
      char current_command_line[MAX_COMMAND];
-     while (1)
+     while (fgets(current_command_line, MAX_COMMAND, stdin) != NULL)
      {
-          if (fgets(current_command_line, MAX_COMMAND, stdin) != NULL)
-          {
-               continue;
-          }
-          
           handleMove(current_command_line);
      }
 }

@@ -1,5 +1,12 @@
-typedef enum {KI, LO, SO, NI, MA}Move;
+typedef enum
+{
+     KI,
+     LO,
+     SO,
+     NI,
+     MA
+} Move;
 
-void handleMove(char *command_line);
+void handleMove(char *command_line, Podium *podium_rouge, Podium *podium_bleu);
 
 Move chooseTheRightMove(char *tab_of_move);
