@@ -20,3 +20,8 @@ void swapAnimal(Podium* podium1, Podium* podium2)
      strcpy(podium1->animals[podium1->nb_animals], podium2->animals[podium2->nb_animals-1]);
      strcpy(podium2->animals[podium2->nb_animals], tmp);
 }
+
+void topAnimal(Podium* podium)
+{
+     
+}
