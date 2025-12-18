@@ -2,13 +2,24 @@
 #include "podium.h"
 #include <string.h>
 #define MAX_MOVE 3
+
 void handleMove(char *command_line, Podium *podium_rouge, Podium *podium_bleu)
 {
+     const char *separator = "  ";
+     char *nom_joueur = strtok(command_line, separator);
+     const char *separator = "\n";
+
+     if (nom_joueur == NULL)
+     {
+          printf("Unknown move");
+     }
+
      for (int i = 0; i < strlen(command_line); ++i)
      {
           char tmp[MAX_MOVE];
 
           strcpy(tmp[i], command_line[i]);
+
           if ((i + 1) % 2 == 0)
           {
                Move move = chooseTheRightMove(&tmp);

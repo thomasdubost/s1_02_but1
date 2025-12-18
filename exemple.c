@@ -1,44 +1,52 @@
 #include <string.h> // strlen, strcat
-#include <stdio.h>  // fopen, fgets, fclose, printf
+#include <stdio.h>	// fopen, fgets, fclose, printf
 #include <assert.h> // assert
 #include <stdlib.h> // calloc, realloc, free
 
-// le fichier crazy.cfg doit être dans le même dossier que votre .c 
-const char* const FILE_NAME = "crazy.cfg";
+// le fichier crazy.cfg doit ï¿½tre dans le mï¿½me dossier que votre .c
+const char *const FILE_NAME = "crazy.cfg";
 
 // La fonction qui suit illustre la lecture d'un fichier texte bloc par bloc.
-// La variable buffer stocke les blocs lus l'un à la suite de l'autre.
+// La variable buffer stocke les blocs lus l'un ï¿½ la suite de l'autre.
 //
-// La taille des blocs est insuffisante pour pouvoir lire une ligne du 
-// fichier en un unique fgets. 
+// La taille des blocs est insuffisante pour pouvoir lire une ligne du
+// fichier en un unique fgets.
 //
-// Quelque soit la taille choisie, ce cas de figure peut arriver avec le 
-// fichier crazy.cfg car la ligne décrivant les animaux peut être d'une 
+// Quelque soit la taille choisie, ce cas de figure peut arriver avec le
+// fichier crazy.cfg car la ligne dï¿½crivant les animaux peut ï¿½tre d'une
 // longueur quelconque.
 
-static void byBlock() {
-	FILE* f = fopen(FILE_NAME, "r");
-	if (f == NULL) {
+static void byBlock()
+{
+	FILE *f = fopen(FILE_NAME, "r");
+	if (f == NULL)
+	{
 		printf("fichier non accessible\n");
 		return;
 	}
-	enum { BUFFER_SIZE = 10 };
+	enum
+	{
+		BUFFER_SIZE = 10
+	};
 	char buffer[BUFFER_SIZE];
-	char* s = fgets(buffer, BUFFER_SIZE, f);
-	while (s != NULL) {
+	char *s = fgets(buffer, BUFFER_SIZE, f);
+	while (s != NULL)
+	{
 		size_t taille = strlen(buffer);
 		assert(taille != 0);
-		if (buffer[taille - 1] == '\n') {
-			// La fin de ligne a été lue, 
-			// Elle peut être facilement retirée du buffer
+		if (buffer[taille - 1] == '\n')
+		{
+			// La fin de ligne a ï¿½tï¿½ lue,
+			// Elle peut ï¿½tre facilement retirï¿½e du buffer
 			buffer[taille - 1] = '\0';
-			// Mais la chaîne résultante peut être vide
-			if (taille > 1) 
+			// Mais la chaï¿½ne rï¿½sultante peut ï¿½tre vide
+			if (taille > 1)
 				printf("'%s'", buffer);
 			printf("\n");
 		}
-		else {
-			// La fin de ligne n'a pas été lue
+		else
+		{
+			// La fin de ligne n'a pas ï¿½tï¿½ lue
 			printf("'%s'", buffer);
 		}
 		s = fgets(buffer, BUFFER_SIZE, f);
@@ -48,61 +56,71 @@ static void byBlock() {
 }
 
 // Si vous voulez collecter toute une ligne dans une unique variable
-// il faut employer l'allocation dynamique (malloc et realloc) 
-// associée aux fonctions telle que strcat (concaténation de chaînes).
+// il faut employer l'allocation dynamique (malloc et realloc)
+// associï¿½e aux fonctions telle que strcat (concatï¿½nation de chaï¿½nes).
 //
 // C'est ce qu'illustre la fonction suivante.
 
-// Quelques réglages spécifiques à Visual...
-// 4996 strcat est unsafe, on le sait et on s'en prémuni, ce n'est pas grave.
-#pragma warning (disable : 4996)
-// 6308 realloc peut retourner NULL s'il n'y a pas assez de mémoire disponible
+// Quelques rï¿½glages spï¿½cifiques ï¿½ Visual...
+// 4996 strcat est unsafe, on le sait et on s'en prï¿½muni, ce n'est pas grave.
+#pragma warning(disable : 4996)
+// 6308 realloc peut retourner NULL s'il n'y a pas assez de mï¿½moire disponible
 // 28183 strcat ne veut pas de NULL en premier argument
-// on ignore ces deux dernières erreurs potentielles, ce n'est pas bien
-#pragma warning (disable : 6308 28183)
+// on ignore ces deux derniï¿½res erreurs potentielles, ce n'est pas bien
+#pragma warning(disable : 6308 28183)
 
-static void withConcatenation() {
-	FILE* f = fopen(FILE_NAME, "r");
-	if (f == NULL) {
+static void withConcatenation()
+{
+	FILE *f = fopen(FILE_NAME, "r");
+	if (f == NULL)
+	{
 		printf("fichier non accessible\n");
 		return;
 	}
-	enum { BUFFER_SIZE = 10 };
+	enum
+	{
+		BUFFER_SIZE = 10
+	};
 	char buffer[BUFFER_SIZE];
-	char* line = (char*)calloc(1, 1);
-	char* s = fgets(buffer, BUFFER_SIZE, f);
-	while (s != NULL) {
+	char *line = (char *)calloc(1, 1);
+	char *s = fgets(buffer, BUFFER_SIZE, f);
+	while (s != NULL)
+	{
 		size_t taille = strlen(buffer);
 		assert(taille != 0);
-		if (buffer[taille - 1] == '\n') {
-			// La fin de ligne a été lue, 
-			// Elle peut être facilement retirée du buffer
+		if (buffer[taille - 1] == '\n')
+		{
+			// La fin de ligne a ï¿½tï¿½ lue,
+			// Elle peut ï¿½tre facilement retirï¿½e du buffer
 			buffer[taille - 1] = '\0';
-			// Mais la chaîne résultante peut être vide
-			if (taille > 1) {
-				line = (char*)realloc(line, strlen(line) + taille);
+			// Mais la chaï¿½ne rï¿½sultante peut ï¿½tre vide
+			if (taille > 1)
+			{
+				line = (char *)realloc(line, strlen(line) + taille);
 				strcat(line, buffer);
 			}
 			printf("'%s'\n", line);
 			line[0] = '\0';
 		}
-		else {
-			// La fin de ligne n'a pas été lue
-			line = (char*)realloc(line, strlen(line) + taille + 1);
+		else
+		{
+			// La fin de ligne n'a pas ï¿½tï¿½ lue
+			line = (char *)realloc(line, strlen(line) + taille + 1);
 			strcat(line, buffer);
 		}
 		s = fgets(buffer, BUFFER_SIZE, f);
 	}
-	// si le fichier ne termine pas par une ligne vide, on affiche le contenu collecté
+	// si le fichier ne termine pas par une ligne vide, on affiche le contenu collectï¿½
 	if (strlen(line) != 0)
 		printf("'%s'\n", line);
 	free(line);
 	fclose(f);
 }
 
-// Ce programme illustre comment les paramêtres reçus sur la ligne de commande
-// peuvent être récupérés un à un.
-int main(int argc, const char* argv[]) {
+// Ce programme illustre comment les paramï¿½tres reï¿½us sur la ligne de commande
+// peuvent ï¿½tre rï¿½cupï¿½rï¿½s un ï¿½ un.
+int main(int argc, const char *argv[])
+{
 	printf("%d parametre(s) recu(s) sur la ligne de commande\n", argc - 1);
 	for (int i = 1; i < argc; ++i)
 		printf("%s\n", argv[i]);
