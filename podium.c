@@ -2,6 +2,12 @@
 #include "podium.h"
 #define MAX_TMP 10
 
+void initPodium(Podium *podium)
+{
+     
+}
+
+
 void addAnimal(Podium *podium, Animal animal)
 {
      podium->animals[podium->nb_animals++] = animal;

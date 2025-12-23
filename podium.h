@@ -3,12 +3,18 @@
 #include "animal.h"
 typedef struct
 {
-     Animal animals[SIZE_PODIUM];
+     Animal *animals;
      int nb_animals;
-
+     int capacite;
 } Podium;
 
+void initPodium(Podium *podium);
+
 void addAnimal(Podium *podium, Animal animal);
+
+Animal getFirstAnimal(Podium *podium);
+
+Animal getLastAnimal(Podium *podium);
 
 void moveAnimal(Podium *src, Podium *dest);
 

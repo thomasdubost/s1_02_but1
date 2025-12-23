@@ -7,6 +7,9 @@ typedef enum
      NI,
      MA
 } Move;
+char *parseCommand(char *command_line);
+
+void readNames(char *command_line, Joueurs *joueurs);
 
 void assertItsYourTurn(char *joueur);
 
