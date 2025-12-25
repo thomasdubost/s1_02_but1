@@ -9,23 +9,36 @@ char *parseCommand(char *command_line)
      char *string = strtok(command_line, separator);
      const char *separator = "\n";
      return string;
-
 }
 
-void handleMove(char *command_line, Podium *podium_rouge, Podium *podium_bleu)
+int assertItsYourTurn(const Joueurs *joueurs,const char *joueur, int current_id)
+{
+     if (current_id != joueurs->joueurs[current_id].id)
+     {
+          return 0;
+     }
+     return 1;
+}
+
+void handleMove(char *command_line, Joueurs *joueurs, Podium *podium_rouge, Podium *podium_bleu, int current_id)
 {
      char *nom_joueur = parseCommand(command_line);
-     
+     assertItsYourTurn(joueurs,nom_joueur ,current_id);
+
      if (nom_joueur == NULL)
      {
-          printf("Unknown move");
+          printf("Unknown player");
      }
 
      for (int i = 0; i < strlen(command_line); ++i)
      {
           char tmp[MAX_MOVE];
-
           strcpy(tmp[i], command_line[i]);
+
+          if (tmp == NULL)
+          {
+               printf("Unknown player");
+          }
 
           if ((i + 1) % 2 == 0)
           {

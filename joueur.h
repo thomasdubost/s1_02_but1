@@ -11,7 +11,6 @@ typedef struct
      int nb_joueurs;
      int capacite;
 } Joueurs;
-
 void init_joueurs(Joueurs *joueurs);
 
-void add_joueur(Joueurs *joueurs, Joueur *joueur);
+void add_joueur(Joueurs *joueurs, char *nom);

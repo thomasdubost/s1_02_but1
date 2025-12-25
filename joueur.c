@@ -5,11 +5,11 @@
 void init_joueurs(Joueurs *joueurs)
 {
      joueurs->capacite = 2;
-     joueurs->nb_joueurs;
+     joueurs->nb_joueurs = 0;
      joueurs = malloc(joueurs->capacite * sizeof(Joueur));
 }
 
-void add_joueur(Joueurs *joueurs, char *nom, int id)
+void add_joueur(Joueurs *joueurs, char *nom)
 {
      int *tmp;
      if (joueurs->nb_joueurs == joueurs->capacite)
@@ -19,8 +19,8 @@ void add_joueur(Joueurs *joueurs, char *nom, int id)
      if (tmp != NULL)
      {
           joueurs = tmp;
-          ++joueurs->nb_joueurs;
-          joueurs->joueurs[joueurs->nb_joueurs - 1].id = id;
+          joueurs->joueurs[joueurs->nb_joueurs - 1].id = joueurs->nb_joueurs;
           strcpy(joueurs->joueurs[joueurs->nb_joueurs - 1].nom, &nom);
+          joueurs->nb_joueurs = +1;
      }
 }
