@@ -7,7 +7,7 @@ char *parseCommand(char *command_line)
 {
      const char *separator = "  ";
      char *string = strtok(command_line, separator);
-     const char *separator = "\n";
+     //const char *ceparator = "\n";
      return string;
 }
 
@@ -33,40 +33,35 @@ void handleMove(char *command_line, Joueurs *joueurs, Podium *podium_rouge, Podi
      for (int i = 0; i < strlen(command_line); ++i)
      {
           char tmp[MAX_MOVE];
-          strcpy(tmp[i], command_line[i]);
-
-          if (tmp == NULL)
-          {
-               printf("Unknown player");
-          }
+          strcpy(&tmp[i], &command_line[i]);
 
           if ((i + 1) % 2 == 0)
           {
-               Move move = chooseTheRightMove(&tmp);
+               Move move = chooseTheRightMove(tmp);
                switch (move)
                {
                case KI:
-                    moveAnimal(&podium_bleu, &podium_rouge);
+                    moveAnimal(podium_bleu, podium_rouge);
                     printf("Instruction : KI\n");
                     break;
                case LO:
 
-                    moveAnimal(&podium_rouge, &podium_bleu);
+                    moveAnimal(podium_rouge, podium_bleu);
                     printf("Instruction : LO\n");
                     break;
                case SO:
 
-                    swapAnimal(&podium_bleu, &podium_rouge);
+                    swapAnimal(podium_bleu, podium_rouge);
                     printf("Instruction : SO\n");
                     break;
                case NI:
 
-                    topAnimal(&podium_bleu);
+                    topAnimal(podium_bleu);
                     printf("Instruction : NI\n");
                     break;
                case MA:
 
-                    topAnimal(&podium_rouge);
+                    topAnimal(podium_rouge);
                     printf("Instruction : MA\n");
                     break;
                default:
@@ -98,5 +93,5 @@ Move chooseTheRightMove(char *move)
      {
           return MA;
      }
-     return NULL;
+     return ER;
 }

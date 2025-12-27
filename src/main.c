@@ -19,6 +19,6 @@ int main()
      printf("KI (B -> R) | LO (B <- R) | SO (B <-> R) | NI (B ^) | MA (R ^)");
      while (fgets(current_command_line, MAX_COMMAND, stdin) != NULL)
      {
-          handleMove(&tab_joueurs, , &podium_rouge, &podium_bleu);
+          handleMove(current_command_line,&tab_joueurs, &podium_rouge, &podium_bleu,current_id);
      }
 }

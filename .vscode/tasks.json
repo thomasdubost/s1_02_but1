@@ -1,0 +1,32 @@
+{
+    "tasks": [
+        {
+            "type": "shell",
+            "label": "Build",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "command": "gcc",
+            "args": [
+                "-g",
+                "-Wall",
+                "${workspaceFolder}/src/*.c",
+                "-o",
+                "${workspaceFolder}/app"
+            ],
+            "problemMatcher": [
+                "$gcc"
+            ]
+        },
+        {
+            "type": "process",
+            "label": "Run",
+            "group": "test",
+            "command": "${workspaceFolder}/app",
+            "args": [],
+            "problemMatcher": []
+        }
+    ],
+    "version": "2.0.0"
+}

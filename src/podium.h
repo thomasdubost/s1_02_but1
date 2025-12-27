@@ -1,3 +1,4 @@
+#pragma once
 #define SIZE_PODIUM 3
 #include <stdio.h>
 #include "animal.h"

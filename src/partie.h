@@ -1,11 +1,13 @@
 #include "joueur.h"
+#include "podium.h"
 typedef enum
 {
      KI,
      LO,
      SO,
      NI,
-     MA
+     MA,
+     ER
 } Move;
 char *parseCommand(char *command_line);
 
