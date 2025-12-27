@@ -12,7 +12,7 @@ int main()
 
      char current_command_line[MAX_COMMAND];
 
-     fgets(current_command_line, MAX_COMMAND, stdin) != NULL;
+     fgets(current_command_line, MAX_COMMAND, stdin);
      readNames(current_command_line, &tab_joueurs);
      current_id = 1;
      
