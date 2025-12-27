@@ -1,5 +1,6 @@
 #include "joueur.h"
 #include "podium.h"
+enum{FIRST_LETTER, SECOND_LETTER, END_OF_LINE};
 typedef enum
 {
      KI,

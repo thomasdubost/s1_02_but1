@@ -13,7 +13,7 @@
                 "-Wall",
                 "${workspaceFolder}/src/*.c",
                 "-o",
-                "${workspaceFolder}/app"
+                "${workspaceFolder}/jeux.out"
             ],
             "problemMatcher": [
                 "$gcc"

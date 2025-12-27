@@ -5,13 +5,24 @@
 
 char *parseCommand(char *command_line)
 {
-     const char *separator = "  ";
+     const char *separator = " ";
      char *string = strtok(command_line, separator);
-     //const char *ceparator = "\n";
+     // const char *ceparator = "\n";
      return string;
 }
 
-int assertItsYourTurn(const Joueurs *joueurs,const char *joueur, int current_id)
+void readNames(char *command_line, Joueurs *joueurs)
+{
+     while(strlen(command_line) != NULL)
+     {
+          char *string = parseCommand(command_line);
+          command_line = strtok(NULL, " ");
+          add_joueur(joueurs, string);
+     }
+     char *empty = strtok(NULL, " ");
+}
+
+int assertItsYourTurn(const Joueurs *joueurs, const char *joueur, int current_id)
 {
      if (current_id != joueurs->joueurs[current_id].id)
      {
@@ -23,17 +34,16 @@ int assertItsYourTurn(const Joueurs *joueurs,const char *joueur, int current_id)
 void handleMove(char *command_line, Joueurs *joueurs, Podium *podium_rouge, Podium *podium_bleu, int current_id)
 {
      char *nom_joueur = parseCommand(command_line);
-     assertItsYourTurn(joueurs,nom_joueur ,current_id);
+     assertItsYourTurn(joueurs, nom_joueur, current_id);
+     char *command = strtok(NULL, " ");
 
-     if (nom_joueur == NULL)
-     {
-          printf("Unknown player");
-     }
+     char tmp[MAX_MOVE];
 
-     for (int i = 0; i < strlen(command_line); ++i)
+     for (int i = 0; i < strlen(command); i += 2)
      {
-          char tmp[MAX_MOVE];
-          strcpy(&tmp[i], &command_line[i]);
+          tmp[FIRST_LETTER] = command[i];
+          tmp[SECOND_LETTER] = command[i + 1];
+          tmp[END_OF_LINE] = '\0';
 
           if ((i + 1) % 2 == 0)
           {
@@ -64,7 +74,9 @@ void handleMove(char *command_line, Joueurs *joueurs, Podium *podium_rouge, Podi
                     topAnimal(podium_rouge);
                     printf("Instruction : MA\n");
                     break;
-               default:
+               case ER:
+
+                    printf("Erreur, instruction incorrect!");
                     break;
                }
           }
